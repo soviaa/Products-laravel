@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function storeCategory(Request $request){
         try{
             $validatedData = $request->validate([
-                'title' => 'required|unique:categories|max:255',
+                'title' => 'required|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
             ]);
 
             $category = new Category();
@@ -42,7 +42,7 @@ class CategoryController extends Controller
     public function updateCategory(Request $request,$id){
         try{
             $validatedData = $request->validate([
-                'title' => 'required|unique:categories|max:255',
+                'title' => 'required|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
             ]);
 
             $category = Category::find($id);
