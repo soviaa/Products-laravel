@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->float('price');
+            $table->decimal('price', 8, 2);
             $table->boolean('status')->default(false);
-            $table->integer('quantity');
-            $table->integer('order');
-            $table->unsignedBigInteger('category_id');
+            $table->integer('quantity')->default(1);
+            $table->integer('order')->default(0);
 
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
