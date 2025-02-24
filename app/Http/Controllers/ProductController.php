@@ -55,12 +55,12 @@ class ProductController extends Controller
     public function updateProduct(Request $request,$id){
         try{
             $validatedData = $request->validate([
-                'title' => 'required|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
-                'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+                'title' => 'nullable|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
+                'price' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
                 'status' => 'nullable|boolean',
-                'quantity' => 'required|numeric|min:1',
+                'quantity' => 'nullable|numeric|min:1',
                 'order' => 'nullable|numeric|min:0',
-                'category_id' => 'required|exists:categories,id',
+                'category_id' => 'nullable|exists:categories,id',
 
             ]);
 
