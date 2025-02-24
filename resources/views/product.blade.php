@@ -30,6 +30,7 @@
                 <td><a href="{{route('edit-product', ['id' => $product->id])}}">Edit</a></td>
                 <td><a href="{{route('delete-product',['id' => $product->id])}}">Delete</a></td>
             </tr>
+
         @endforeach
     </table>
 </body>

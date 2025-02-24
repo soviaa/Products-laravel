@@ -10,7 +10,7 @@ use App\Models\Category;
 class ProductController extends Controller
 {
     public function getProduct(){
-        $products = Product::all();
+        $products = Product::orderBy('quantity','desc')->get();
         return view('product',compact('products'));
     }
 

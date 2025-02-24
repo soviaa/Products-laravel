@@ -8,7 +8,7 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
     public function getCategory(){
-        $categories = Category::all();
+        $categories = Category::orderBy('created_at','desc')->get();
         return view('category',compact('categories'));
     }
 
