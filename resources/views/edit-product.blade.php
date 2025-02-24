@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-    <form action="{{ route('update-product') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md w-96 space-y-4">
+    <form action="{{ route('update-product', ['id' => $product->id]) }}) }}" method="POST" class="bg-white p-6 rounded-lg shadow-md w-96 space-y-4">
         @csrf
         <h1 class="text-xl font-bold text-center">Edit Product</h1>
 
