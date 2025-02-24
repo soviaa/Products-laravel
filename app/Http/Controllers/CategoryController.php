@@ -17,21 +17,21 @@ class CategoryController extends Controller
     }
 
     public function storeCategory(Request $request){
-        try{
             $validatedData = $request->validate([
                 'title' => 'required|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
-            ]);
+            ],
+                [
+                    'title.required' => 'The category title is required.',
+                    'title.regex' => 'The title should not contain special characters.',
+                    'title.unique' => 'This category title already exists.',
+                ]);
 
             $category = new Category();
             $category->title = $request->title;
             $category->save();
 
-
             return redirect('categories')->with('success','Category added successfully');
 
-        }catch(\Exception $e){
-            return redirect()->back()->with('error',$e->getMessage());
-        }
     }
 
     public function editCategory($id){
