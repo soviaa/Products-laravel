@@ -37,7 +37,9 @@
         <div>
             <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
             <input type="number" name="quantity" id="quantity" min="1" value="{{ old('quantity') }}" class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-            <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @error('quantity')
+                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+             @enderror
         </div>
 
         <div>

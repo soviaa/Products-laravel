@@ -33,10 +33,17 @@
                             <td class="px-4 py-2 text-center">{{ $product->id }}</td>
                             <td class="px-4 py-2">{{ $product->title }}</td>
                             <td class="px-4 py-2">{{ $product->price }}</td>
-                            <td class="px-4 py-2">{{ $product->status }}</td>
+                            <td class="px-4 py-2">
+                                @if ($product->status == 1)
+                                    Available
+
+                                @else
+                                    Not Available
+                                @endif
+                            </td>
                             <td class="px-4 py-2 text-center">{{ $product->quantity }}</td>
                             <td class="px-4 py-2 text-center">{{ $product->order }}</td>
-                            <td class="px-4 py-2 text-center">{{ $product->category_id }}</td>
+                            <td class="px-4 py-2 text-center">{{ $product->category->title }}</td>
                             <td class="px-4 py-2 text-center">
                                 <a href="{{ route('edit-product', ['id' => $product->id]) }}"
                                    class="text-yellow-500 hover:underline">Edit</a>

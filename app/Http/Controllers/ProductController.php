@@ -10,7 +10,7 @@ use App\Models\Category;
 class ProductController extends Controller
 {
     public function getProduct(){
-        $products = Product::orderBy('quantity','desc')->get();
+        $products = Product::orderBy('quantity', 'desc')->with('category')->get();
         return view('product.product',compact('products'));
     }
 
@@ -62,13 +62,23 @@ class ProductController extends Controller
     public function updateProduct(Request $request,$id){
 
             $validatedData = $request->validate([
-                'title' => 'sometimes|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
+                'title' => 'sometimes|unique:categories|max:255|regex:/^[a-zA-Z ]+$/u',
                 'price' => 'sometimes|numeric|regex:/^\d+(\.\d{1,2})?$/',
                 'status' => 'nullable|boolean',
                 'quantity' => 'sometimes|numeric|min:1',
                 'order' => 'nullable|numeric|min:0',
                 'category_id' => 'sometimes|exists:categories,id',
 
+            ],[
+                'title.required' => 'The product title is required.',
+                'title.regex' => 'The title should not contain special characters.',
+                'title.unique' => 'This product title already exists.',
+                'price.required' => 'The product price is required.',
+                'price.regex' => 'The price should be a number with up to 2 decimal places.',
+                'quantity.required' => 'The product quantity is required.',
+                'quantity.min' => 'The product quantity should be at least 1.',
+                'category_id.required' => 'The category is required.',
+                'category_id.exists' => 'The selected category does not exist.',
             ]);
 
             $product = Product::find($id);
