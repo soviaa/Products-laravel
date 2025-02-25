@@ -7,7 +7,7 @@
     <title>Add Category</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 p-8 items-center justify-center flex">
     <form action="{{ route('store-category') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md w-80 space-y-4">
         @csrf
         <h1 class="text-xl font-bold text-center">Add Category</h1>
@@ -18,9 +18,7 @@
             @error('title')
                 <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
             @enderror
-            @if (session('success'))
-                <div class="text-green-500">{{ session('success') }}</div>
-            @endif
+
         </div>
 
         <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-md shadow-sm">

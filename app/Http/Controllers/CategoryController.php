@@ -40,9 +40,20 @@ class CategoryController extends Controller
     }
 
     public function updateCategory(Request $request,$id){
-        try{
+
+        $category = Category::find($id);
+
+        
+        if (!$request->filled('title') || $request->title === $category->title) {
+            return redirect('categories')->with('info', 'No changes were made to the category.');
+        }
+
             $validatedData = $request->validate([
-                'title' => 'required|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
+                'title' => 'sometimes|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
+            ],
+                [
+                    'title.regex' => 'The title should not contain special characters.',
+                    'title.unique' => 'This category title already exists.',
             ]);
 
             $category = Category::find($id);
@@ -50,10 +61,6 @@ class CategoryController extends Controller
             $category->save();
 
             return redirect('categories')->with('success','Category updated successfully');
-
-        }catch(\Exception $e){
-            return redirect()->back()->with('error',$e->getMessage());
-        }
     }
 
     public function deleteCategory($id){
