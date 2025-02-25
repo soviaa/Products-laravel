@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
-<body class="bg-gray-100 p-8 w-[800px] flex items-center">
+<body class="bg-gray-100 p-8 w-[950px] flex items-center">
     <div class="max-w-7xl mx-auto bg-white p-6 rounded-2xl shadow-lg">
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-2xl font-bold text-gray-800">Product List</h1>

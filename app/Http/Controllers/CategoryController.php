@@ -49,7 +49,7 @@ class CategoryController extends Controller
         }
 
             $validatedData = $request->validate([
-                'title' => 'sometimes|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
+                'title' => 'sometimes|unique:categories|max:255|regex:/^[a-zA-Z ]+$/u',
             ],
                 [
                     'title.regex' => 'The title should not contain special characters.',
