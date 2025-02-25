@@ -11,23 +11,33 @@ class ProductController extends Controller
 {
     public function getProduct(){
         $products = Product::orderBy('quantity','desc')->get();
-        return view('product',compact('products'));
+        return view('product.product',compact('products'));
     }
 
     public function addProduct(){
         $categories = Category::all();
-        return view('add-product', compact('categories'));
+        return view('product.add-product', compact('categories'));
     }
 
     public function storeProduct(Request $request){
-        try{
+
             $validatedData = $request->validate([
-                'title' => 'required|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
+                'title' => 'required|unique:categories|max:255|regex:/^[a-zA-Z ]+$/u',
                 'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
                 'status' => 'nullable|boolean',
                 'quantity' => 'required|numeric|min:1',
                 'order' => 'nullable|numeric|min:0',
                 'category_id' => 'required|exists:categories,id',
+            ],[
+                'title.required' => 'The product title is required.',
+                'title.regex' => 'The title should not contain special characters.',
+                'title.unique' => 'This product title already exists.',
+                'price.required' => 'The product price is required.',
+                'price.regex' => 'The price should be a number with up to 2 decimal places.',
+                'quantity.required' => 'The product quantity is required.',
+                'quantity.min' => 'The product quantity should be at least 1.',
+                'category_id.required' => 'The category is required.',
+                'category_id.exists' => 'The selected category does not exist.',
             ]);
             $product = new Product();
             $product->title = $request->title;
@@ -41,19 +51,16 @@ class ProductController extends Controller
 
             return redirect('products')->with('success','Product added successfully');
 
-        }catch(\Exception $e){
-            return redirect()->back()->with('error',$e->getMessage());
-        }
     }
 
     public function editProduct($id){
         $product = Product::find($id);
         $categories = Category::all();
-        return view('edit-product',compact('product','categories'));
+        return view('product.edit-product',compact('product','categories'));
     }
 
     public function updateProduct(Request $request,$id){
-        try{
+
             $validatedData = $request->validate([
                 'title' => 'sometimes|unique:categories|max:255|regex:/^[a-zA-Z]+$/u',
                 'price' => 'sometimes|numeric|regex:/^\d+(\.\d{1,2})?$/',
@@ -75,9 +82,6 @@ class ProductController extends Controller
 
             return redirect('products')->with('success','Product updated successfully');
 
-        }catch(\Exception $e){
-            return redirect()->back()->with('error',$e->getMessage());
-        }
     }
 
     public function deleteProduct($id){

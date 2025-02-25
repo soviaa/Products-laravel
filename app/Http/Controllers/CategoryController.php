@@ -9,11 +9,11 @@ class CategoryController extends Controller
 {
     public function getCategory(){
         $categories = Category::orderBy('created_at','desc')->get();
-        return view('category',compact('categories'));
+        return view('category.category',compact('categories'));
     }
 
     public function addCategory(){
-        return view('add-category');
+        return view('category.add-category');
     }
 
     public function storeCategory(Request $request){
@@ -36,14 +36,14 @@ class CategoryController extends Controller
 
     public function editCategory($id){
         $category = Category::find($id);
-        return view('edit-category',compact('category'));
+        return view('category.edit-category',compact('category'));
     }
 
     public function updateCategory(Request $request,$id){
 
         $category = Category::find($id);
 
-        
+
         if (!$request->filled('title') || $request->title === $category->title) {
             return redirect('categories')->with('info', 'No changes were made to the category.');
         }
@@ -64,14 +64,10 @@ class CategoryController extends Controller
     }
 
     public function deleteCategory($id){
-        try{
+
             $category = Category::find($id);
             $category->delete();
 
             return redirect('categories')->with('success','Category deleted successfully');
-
-        }catch(\Exception $e){
-            return redirect()->back()->with('error',$e->getMessage());
-        }
     }
 }

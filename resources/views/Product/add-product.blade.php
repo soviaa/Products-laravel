@@ -15,12 +15,18 @@
 
         <div>
             <label for="title" class="block text-sm font-medium text-gray-700">Product Title</label>
-            <input type="text" name="title" id="title" class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <input type="text" name="title" id="title" value="{{ old('title') }}" class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            @error('title')
+                <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+            @enderror
         </div>
 
         <div>
             <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
-            <input type="text" name="price" id="price" class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <input type="text" name="price" id="price" value="{{ old('price') }}" class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            @error('price')
+            <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+        @enderror
         </div>
 
         <div class="flex items-center space-x-2">
@@ -30,7 +36,8 @@
 
         <div>
             <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
-            <input type="number" name="quantity" id="quantity" min="1" class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <input type="number" name="quantity" id="quantity" min="1" value="{{ old('quantity') }}" class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
         </div>
 
         <div>
